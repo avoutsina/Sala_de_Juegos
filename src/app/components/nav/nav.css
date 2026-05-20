@@ -1,0 +1,27 @@
+.navbar {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  backdrop-filter: blur(5px);
+  z-index: 1;
+}
+
+.navbar-brand {
+  font-family: 'New Rocker', cursive;
+  font-size: 1.8rem;
+}
+
+.navbar-nav .nav-link {
+  font-family: 'New Rocker', cursive;
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  color: #343a40;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Enlace activo subrayado */
+.navbar-nav .nav-link.active {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: 700;
+  color: #000 !important;
+}
