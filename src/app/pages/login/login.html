@@ -1,29 +1,77 @@
-<form class="login-container">
+<form class="login-container" (ngSubmit)="onSubmit()" novalidate>
   <h2 class="login-title">Iniciar sesión</h2>
-  <p class="login-subtitle">Ingresa tus datos para acceder</p>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" />
-  </div>
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  <p class="login-subtitle">Ingresá tus datos para acceder</p>
+
+  <!-- ✅ Mensaje de error -->
+  <div class="alert alert-danger py-2 small" *ngIf="errorMsg">
+    {{ errorMsg }}
   </div>
 
-  <!-- Submit centrado solo -->
-  <div class="d-flex justify-content-center mb-2">
-    <button type="submit" class="btn btn-primary">Submit</button>
+  <div class="mb-3">
+    <label for="inputEmail" class="form-label">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="inputEmail"
+      placeholder="tu@email.com"
+      [(ngModel)]="email"
+      name="email"
+      [disabled]="cargando"
+    />
   </div>
 
-  <!-- Pruebas en fila horizontal -->
-  <div class="d-flex justify-content-center gap-2">
-    <button type="button" class="btn btn-secondary">Prueba 1</button>
-    <button type="button" class="btn btn-secondary">Prueba 2</button>
-    <button type="button" class="btn btn-secondary">Prueba 3</button>
+  <div class="mb-3">
+    <label for="inputPassword" class="form-label">Contraseña</label>
+    <input
+      type="password"
+      class="form-control"
+      id="inputPassword"
+      placeholder="••••••••"
+      [(ngModel)]="password"
+      name="password"
+      [disabled]="cargando"
+    />
   </div>
+
+  <!-- ✅ Botón submit — redirige a Home si es exitoso -->
+  <div class="d-flex justify-content-center mb-3">
+    <button type="submit" class="btn btn-primary w-100" [disabled]="cargando">
+      <span *ngIf="cargando" class="spinner-border spinner-border-sm me-2"></span>
+      {{ cargando ? 'Ingresando...' : 'Ingresar' }}
+    </button>
+  </div>
+
+  <!-- ✅ Botones de prueba rápida -->
+  <p class="text-center text-muted small mb-2">Usuarios de prueba:</p>
+  <div class="d-flex justify-content-center gap-2 mb-3">
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-sm"
+      (click)="cargarPrueba(0)"
+      [disabled]="cargando"
+    >
+      Prueba 1
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-sm"
+      (click)="cargarPrueba(1)"
+      [disabled]="cargando"
+    >
+      Prueba 2
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-secondary btn-sm"
+      (click)="cargarPrueba(2)"
+      [disabled]="cargando"
+    >
+      Prueba 3
+    </button>
+  </div>
+
+  <p class="text-center small">
+    ¿No tenés cuenta?
+    <a routerLink="/sign-up" class="text-decoration-none fw-semibold">Registrate</a>
+  </p>
 </form>
