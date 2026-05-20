@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common'; // ← AGREGAR
 import { GitModel } from '../../Models/gitModel';
-import { ApiGitService } from '../../service/api-git.service';
+import { ApiGitService } from '../../services/api-git.service';
 
 @Component({
   selector: 'app-sobre-mi',
