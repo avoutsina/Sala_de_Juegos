@@ -1,5 +1,5 @@
 <div class="home-wrapper">
-  <!-- ✅ Usuario NO logueado: mostrar botones de registro e inicio de sesión -->
+
   <ng-container *ngIf="!usuario">
     <div class="home-guest text-center py-5">
       <h2 class="mb-2">Bienvenido a <span class="text-primary fw-bold">Juegarla</span></h2>
@@ -11,7 +11,7 @@
     </div>
   </ng-container>
 
-  <!-- ✅ Usuario logueado: mostrar nombre y botón de cerrar sesión -->
+
   <ng-container *ngIf="usuario">
     <div class="home-logged text-center py-5">
       <h2 class="mb-1">
@@ -27,7 +27,7 @@
         <a routerLink="/preguntados" class="btn btn-outline-secondary px-4">Preguntados</a>
       </div>
 
-      <!-- ✅ Botón cerrar sesión -->
+
       <button class="btn btn-danger btn-sm" (click)="cerrarSesion()">Cerrar sesión</button>
     </div>
   </ng-container>
