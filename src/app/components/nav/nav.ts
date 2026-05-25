@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLinkActive } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
   standalone: true, // asegúrate de incluir esto si usas standalone components
-  imports: [RouterLink, RouterLinkActive],
+  imports: [ RouterLinkActive],
   templateUrl: './nav.html',
   styleUrls: ['./nav.css'], // nota: es "styleUrls" (con 's')
 })
-export class Nav {}
+export class Nav {
+  constructor(public router: Router) {}
+}

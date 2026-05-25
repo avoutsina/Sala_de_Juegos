@@ -15,40 +15,44 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="ms-auto navbar-nav mb-2">
         <li class="nav-item">
-          <a
+          <button
             class="nav-link"
-            [routerLink]="['/home']"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
-            >Home</a
+            (click)="router.navigate(['/home'])"
           >
+            Home
+          </button>
         </li>
         <li class="nav-item">
-          <a
+          <button
             class="nav-link"
-            [routerLink]="['/sobre-mi']"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
-            >Sobre mi</a
+            (click)="router.navigate(['/sobre-mi'])"
           >
+            Sobre Mí
+          </button>
         </li>
         <li class="nav-item">
-          <a
+          <button
             class="nav-link"
-            [routerLink]="['/login']"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
-            >Login</a
+            (click)="router.navigate(['/login'])"
           >
+            Login
+          </button>
         </li>
         <li class="nav-item">
-          <a
+          <button
             class="nav-link"
-            [routerLink]="['/sign-up']"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
-            >Registro</a
+            (click)="router.navigate(['/sign-up'])"
           >
+            Registrarse
+          </button>
         </li>
       </ul>
     </div>
