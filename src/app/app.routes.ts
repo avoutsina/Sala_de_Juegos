@@ -8,13 +8,20 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/home/home').then((m) => m.Home),
   },
   {
-    path: 'juego',
-    loadComponent: () => import('./pages/juegos/juego/juego').then((m) => m.Juego),
+    path: 'ahorcado',
+    loadComponent: () => import('./pages/juegos/ahorcado/ahorcado').then((m) => m.Ahorcado),
     canActivate: [authGuard],
   },
   {
-    path: 'sobre-mi',
-    loadComponent: () => import('./pages/sobre-mi/sobre-mi').then((m) => m.SobreMi),
+    path: 'mayor-o-menor',
+    loadComponent: () =>
+      import('./pages/juegos/mayor-o-menor/mayor-o-menor').then((m) => m.MayorOMenor),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'chat',
+    loadComponent: () => import('./pages/chat/chat').then((m) => m.Chat),
+    canActivate: [authGuard],
   },
   {
     path: 'login',
@@ -25,6 +32,10 @@ export const routes: Routes = [
     path: 'sign-up',
     loadComponent: () => import('./pages/sign-up/sign-up').then((m) => m.SignUp),
     canActivate: [noAuthGuard],
+  },
+  {
+    path: 'sobre-mi',
+    loadComponent: () => import('./pages/sobre-mi/sobre-mi').then((m) => m.SobreMi),
   },
   {
     path: '',

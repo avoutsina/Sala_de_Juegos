@@ -9,17 +9,31 @@
       </div>
     </div>
   } @else {
-    <div class="home-logged text-center py-5">
+    <div class="home-logged text-center py-4">
       <h2 class="mb-1">
         ¡Hola, <span class="text-primary fw-bold">{{ nombreMostrado }}</span
         >!
       </h2>
-      <p class="text-muted mb-4">Elegí un juego para empezar.</p>
+      <p class="text-muted mb-4">Elegí una actividad para empezar.</p>
 
-      <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
-        <a routerLink="/mayor-menor" class="btn btn-outline-secondary px-4">Mayor o Menor</a>
-        <a routerLink="/ahorcado" class="btn btn-outline-secondary px-4">Ahorcado</a>
-        <a routerLink="/preguntados" class="btn btn-outline-secondary px-4">Preguntados</a>
+      <div class="d-flex flex-wrap justify-content-center gap-4 mb-4">
+        <a routerLink="/ahorcado" class="card-juego text-decoration-none">
+          <div class="icono">🪢</div>
+          <div class="card-titulo">Ahorcado</div>
+          <div class="card-desc">Adivina la palabra letra por letra</div>
+        </a>
+
+        <a routerLink="/mayor-o-menor" class="card-juego text-decoration-none">
+          <div class="icono">🃏</div>
+          <div class="card-titulo">Mayor o Menor</div>
+          <div class="card-desc">¿La próxima carta será mayor o menor?</div>
+        </a>
+
+        <a routerLink="/chat" class="card-juego text-decoration-none">
+          <div class="icono">💬</div>
+          <div class="card-titulo">Chat Global</div>
+          <div class="card-desc">Chateá con todos los jugadores</div>
+        </a>
       </div>
     </div>
   }
