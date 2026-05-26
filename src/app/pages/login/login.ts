@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { SupabaseService } from '../../services/supabase.service';
-
-// ⚠️ Reemplazá con credenciales de usuarios reales registrados en tu Supabase
+import { Auth } from '../../services/auth';
 const USUARIOS_PRUEBA = [
   { email: 'prueba1@mail.com', password: 'prueba123' },
   { email: 'prueba2@mail.com', password: 'prueba123' },
@@ -14,53 +12,45 @@ const USUARIOS_PRUEBA = [
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
-  email = '';
-  password = '';
+  formularioLogin = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+  });
 
   cargando = false;
   errorMsg = '';
 
   constructor(
-    private supabaseService: SupabaseService,
+    private auth: Auth,
     private router: Router,
   ) {}
 
-  /** Rellena los inputs con un usuario de prueba */
   cargarPrueba(indice: number) {
     const u = USUARIOS_PRUEBA[indice];
-    this.email = u.email;
-    this.password = u.password;
+    this.formularioLogin.setValue({ email: u.email, password: u.password });
     this.errorMsg = '';
   }
 
   async onSubmit() {
     this.errorMsg = '';
 
-    if (!this.email || !this.password) {
-      this.errorMsg = 'Por favor completá todos los campos.';
-      return;
-    }
-    if (!this.email.includes('@')) {
-      this.errorMsg = 'El email ingresado no es válido.';
-      return;
-    }
-    if (this.password.length < 6) {
-      this.errorMsg = 'La contraseña debe tener al menos 6 caracteres.';
+    if (this.formularioLogin.invalid) {
+      this.formularioLogin.markAllAsTouched();
       return;
     }
 
+    const { email, password } = this.formularioLogin.value;
+
     this.cargando = true;
     try {
-      await this.supabaseService.login(this.email, this.password);
-      // ✅ Requisito: navegar automáticamente al Home si el login es exitoso
+      await this.auth.login(email!, password!);
       this.router.navigate(['/home']);
     } catch (error: any) {
-      // ✅ Requisito: mostrar mensaje de error si el login falla
       if (
         error?.message?.includes('Invalid login credentials') ||
         error?.message?.includes('invalid_credentials')

@@ -1,36 +1,32 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common'; // ← AGREGAR
-import { GitModel } from '../../Models/gitModel';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ApiGitService } from '../../services/api-git.service';
 
 @Component({
   selector: 'app-sobre-mi',
-  imports: [CommonModule], // ← AGREGAR
+  standalone: true,
   templateUrl: './sobre-mi.html',
   styleUrl: './sobre-mi.css',
 })
 export class SobreMi implements OnInit {
-  // ← AGREGAR implements OnInit
-  user: GitModel | null = null;
-  loading: boolean = true;
+  private apiGitService = inject(ApiGitService);
 
-  constructor(
-    private apiGitService: ApiGitService,
-    private cdr: ChangeDetectorRef,
-  ) {}
+  // Se lee el signal directamente desde el servicio, sin duplicarlo
+  user = this.apiGitService.usuarioActual;
+  loading = signal<boolean>(true);
+
+  abrirGit(url: string): void {
+    window.open(url, '_blank');
+  }
 
   ngOnInit(): void {
-    this.apiGitService.getUser().subscribe({
-      next: (data) => {
-        this.user = data;
-        this.loading = false;
-        this.cdr.detectChanges();
-      },
-      error: (error) => {
-        console.error('Error fetching user data:', error);
-        this.loading = false;
-        this.cdr.detectChanges();
-      },
-    });
+    this.apiGitService.getUser();
+
+    // Cuando el signal tenga datos, apagamos el loading
+    const intervalo = setInterval(() => {
+      if (this.user() !== null) {
+        this.loading.set(false);
+        clearInterval(intervalo);
+      }
+    }, 50);
   }
 }

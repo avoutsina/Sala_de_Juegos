@@ -1,88 +1,74 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { SupabaseService } from '../../services/supabase.service';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
+import { Auth } from '../../services/auth';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './sign-up.html',
   styleUrls: ['./sign-up.css'],
 })
 export class SignUp {
-  email = '';
-  nombre = '';
-  apellido = '';
-  edad: number | null = null;
-  password = '';
-  confirmarPassword = '';
+  private auth = inject(Auth);
+  private router = inject(Router);
 
-  cargando = false;
-  errorMsg = '';
+  formularioRegistro = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    nombre: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(20),
+      Validators.pattern(/^[a-zA-Z]+$/),
+    ]),
+    apellido: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(20),
+      Validators.pattern(/^[a-zA-Z]+$/),
+    ]),
+    edad: new FormControl('', [Validators.required, Validators.min(15), Validators.max(100)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    confirmarPassword: new FormControl('', [Validators.required, this.validarPassword]),
+  });
 
-  constructor(
-    private supabaseService: SupabaseService,
-    private router: Router,
-  ) {}
-
-  async onSubmit() {
-    this.errorMsg = '';
-
-    // Validaciones
-    if (
-      !this.email ||
-      !this.nombre ||
-      !this.apellido ||
-      !this.edad ||
-      !this.password ||
-      !this.confirmarPassword
-    ) {
-      this.errorMsg = 'Por favor completá todos los campos.';
-      return;
-    }
-    if (!this.email.includes('@')) {
-      this.errorMsg = 'El email ingresado no es válido.';
-      return;
-    }
-    if (this.password.length < 6) {
-      this.errorMsg = 'La contraseña debe tener al menos 6 caracteres.';
-      return;
-    }
-    if (this.password !== this.confirmarPassword) {
-      this.errorMsg = 'Las contraseñas no coinciden.';
-      return;
-    }
-    if (this.edad < 1 || this.edad > 120) {
-      this.errorMsg = 'La edad debe estar entre 1 y 120.';
+  async enviarFormulario() {
+    if (this.formularioRegistro.invalid) {
+      this.formularioRegistro.markAllAsTouched();
       return;
     }
 
-    this.cargando = true;
-    try {
-      // signUp() ya hace login automático internamente
-      await this.supabaseService.signUp(
-        this.email,
-        this.password,
-        this.nombre,
-        this.apellido,
-        this.edad,
-      );
-      // ✅ Requisito: iniciar sesión y navegar automáticamente al Home
-      this.router.navigate(['/home']);
-    } catch (error: any) {
-      // ✅ Requisito: emitir mensaje si el usuario ya está registrado
-      if (
-        error?.message?.includes('already registered') ||
-        error?.message?.includes('User already registered')
-      ) {
-        this.errorMsg = 'Este email ya se encuentra registrado.';
-      } else {
-        this.errorMsg = error?.message ?? 'Ocurrió un error. Intentá de nuevo.';
-      }
-    } finally {
-      this.cargando = false;
+    const { email, password, nombre, apellido, edad } = this.formularioRegistro.value;
+
+    await this.auth.signUp(email!, password!, nombre!, apellido!, Number(edad));
+
+    if (this.auth.returnEstado() === 'SIGNED_IN') {
+      Swal.fire({ title: 'Registro exitoso', icon: 'success' }).then(() => {
+        this.router.navigate(['/home']);
+      });
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: 'El usuario ya se encuentra registrado o hubo un error.',
+        icon: 'error',
+      });
     }
+  }
+
+  validarPassword(control: AbstractControl): ValidationErrors | null {
+    if (!control || !control.parent) return null;
+    const password = control.parent.get('password')?.value;
+    if (!control.value || !password) return null;
+    return control.value === password ? null : { iguales: true };
   }
 }

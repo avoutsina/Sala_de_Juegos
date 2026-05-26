@@ -17,9 +17,10 @@
     "@angular/forms": "^21.2.0",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
-    "@supabase/supabase-js": "^2.106.0",
+    "@supabase/supabase-js": "^2.106.2",
     "bootstrap": "^5.3.8",
     "rxjs": "~7.8.0",
+    "sweetalert2": "^11.26.25",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
@@ -30,5 +31,10 @@
     "prettier": "^3.8.1",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
+  },
+  "overrides": {
+    "@supabase/supabase-js": {
+      "@supabase/gotrue-js": "2.16.0"
+    }
   }
 }
