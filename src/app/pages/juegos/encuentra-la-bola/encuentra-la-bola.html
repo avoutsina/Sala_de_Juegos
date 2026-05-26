@@ -1,0 +1,57 @@
+<div class="container w-50 container_principal mb-5 text-center">
+  @if (!juegoIniciado()) {
+    <h1 class="text-center mb-4">Juego Preguntados</h1>
+
+    <h3 class="mb-3">Reglas del juego:</h3>
+    <ul class="list-group list-group-flush mb-4 lista-oscura">
+      <li class="list-group-item">
+        ✅ Adivina donde esta la bola la mayor cantidad de veces posible
+      </li>
+      <li class="list-group-item">🔴 Habra una bola roja y tres vasos que se mezclaran</li>
+      <li class="list-group-item">🧠 Debaras adivinar en que vaso se encuentra la bola</li>
+      <li class="list-group-item">💔 Si te equivocas, pierdes una vida</li>
+      <li class="list-group-item">❌ Si te quedas sin vidas, el juego termina</li>
+    </ul>
+
+    <div class="text-center">
+      <button class="px-4 boton" (click)="comenzarJuego()">🚀 Comenzar</button>
+      <button class="px-4 boton" routerLink="/welcome">Salir</button>
+    </div>
+  } @else {
+    <img [hidden]="!mostrarBola()" src="/assets/Imagenes Vasos/Bola.png" alt="bola" id="bola" />
+    <div class="d-flex justify-content-center numeroVaso">
+      <h2 [hidden]="!mostrarBola()">1</h2>
+      <h2 [hidden]="!mostrarBola()">2</h2>
+      <h2 [hidden]="!mostrarBola()">3</h2>
+    </div>
+    <div class="d-flex gap-5 justify-content-center" #vasosContainer>
+      <img
+        class="vasoClick"
+        src="/assets/Imagenes Vasos/Vaso.png"
+        alt="vasoUno"
+        (click)="verificar(1)"
+      />
+      <img
+        class="vasoClick"
+        src="/assets/Imagenes Vasos/Vaso.png"
+        alt="vasoDos"
+        (click)="verificar(2)"
+      />
+      <img
+        class="vasoClick"
+        src="/assets/Imagenes Vasos/Vaso.png"
+        alt="vasoTres"
+        (click)="verificar(3)"
+      />
+    </div>
+    <br />
+    <h3>{{ mensaje() }}</h3>
+    <hr />
+    <h2>Puntaje: {{ puntos }} | Vidas: {{ vidas }}❤️</h2>
+    <hr />
+    <div class="mt-3">
+      <button class="px-4 boton" (click)="mezclar()">Mezclar</button>
+      <button class="px-4 boton" (click)="comenzarJuego()">Terminar juego</button>
+    </div>
+  }
+</div>

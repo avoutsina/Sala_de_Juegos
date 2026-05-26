@@ -24,6 +24,22 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'preguntados',
+    loadComponent: () =>
+      import('./pages/juegos/preguntados/preguntados').then((m) => m.Preguntados),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'encuentra-la-bola',
+    loadComponent: () =>
+      import('./pages/juegos/encuentra-la-bola/encuentra-la-bola').then((m) => m.EncuentraLaBola),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'resultados',
+    loadComponent: () => import('./pages/resultados/resultados').then((m) => m.Resultados),
+  },
+  {
     path: 'login',
     loadComponent: () => import('./pages/login/login').then((m) => m.Login),
     canActivate: [noAuthGuard],

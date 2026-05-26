@@ -28,7 +28,6 @@
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/sobre-mi']" routerLinkActive="active"> Sobre mí </a>
         </li>
-
         @if (!usuario()) {
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">
@@ -52,6 +51,23 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/preguntados']" routerLinkActive="active"
+              >Preguntados</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/encuentra-la-bola']" routerLinkActive="active"
+              >Encuentra la Bola</a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/resultados']" routerLinkActive="active"
+              >🏆 Resultados</a
+            >
+          </li>
+
+          <li class="nav-item">
             <a class="nav-link" [routerLink]="['/chat']" routerLinkActive="active"> 💬 Chat </a>
           </li>
           <li class="nav-item">
@@ -59,6 +75,7 @@
               {{ usuario()?.user_metadata?.['nombre'] }}
             </span>
           </li>
+
           <li class="nav-item">
             <button class="nav-link btn btn-outline-danger btn-sm ms-2" (click)="cerrarSesion()">
               Cerrar sesión

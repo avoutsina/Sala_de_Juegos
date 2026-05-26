@@ -1,0 +1,89 @@
+.container_principal {
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 10px 10px 20px black;
+  border-radius: 15px;
+  padding: 25px;
+  margin-top: 50px;
+}
+
+.image-box {
+  width: 100%;
+  max-width: 500px;
+  height: 280px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.lista-oscura .list-group-item {
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding-left: 0;
+}
+
+.select-oscuro {
+  background-color: #111;
+  color: white;
+  border: 1px solid #555;
+}
+
+.select-oscuro option {
+  background-color: #111;
+  color: white;
+}
+
+.boton {
+  margin: 0 15px;
+  padding: 15px 55px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  background-color: darkblue;
+  color: white;
+}
+
+.boton:hover {
+  background-color: navy;
+}
+
+.botonLetra {
+  background-color: darkblue;
+  color: white;
+  font-size: 1rem;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+}
+
+.botonLetra:hover:not(:disabled) {
+  background-color: navy;
+}
+
+.botonLetra:disabled {
+  background-color: transparent;
+  opacity: 0.3;
+}
+
+.letra-espaciada {
+  letter-spacing: 8px;
+}
+h1,
+h2,
+h3,
+h4 {
+  color: white;
+}
+
+.list-group-item {
+  background-color: transparent;
+  color: white;
+  border: none;
+}
+
+.botonRespuestas {
+  min-width: 180px;
+  font-size: 1rem;
+  padding: 10px 20px;
+}
