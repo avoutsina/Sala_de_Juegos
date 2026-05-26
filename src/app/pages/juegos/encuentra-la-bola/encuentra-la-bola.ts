@@ -1,12 +1,13 @@
 import { Component, signal, inject, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Renderer2 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Auth } from '../../../services/auth';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-encuentra-la-bola',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './encuentra-la-bola.html',
   styleUrl: './encuentra-la-bola.css',
 })

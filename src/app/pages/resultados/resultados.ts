@@ -10,7 +10,6 @@ import { Auth } from '../../services/auth';
 })
 export class Resultados {
   authService = inject(Auth);
-
   ahorcado = signal<any[]>([]);
   mayorMenor = signal<any[]>([]);
   preguntados = signal<any[]>([]);
@@ -32,22 +31,26 @@ export class Resultados {
       .select(
         'id_usuario, puntaje, tiempo_finalizacion, letras_seleccionadas, gano, usuarios(nombre, apellido)',
       )
-      .order('puntaje', { ascending: false });
+      .order('puntaje', { ascending: false })
+      .limit(10);
 
     const r2 = await this.authService.supabase
       .from('resultados_mayor_menor')
       .select('id_usuario, puntaje, cartas_acertadas, usuarios(nombre, apellido)')
-      .order('puntaje', { ascending: false });
+      .order('puntaje', { ascending: false })
+      .limit(10);
 
     const r3 = await this.authService.supabase
       .from('resultados_preguntados')
       .select('id_usuario, puntaje, usuarios(nombre, apellido)')
-      .order('puntaje', { ascending: false });
+      .order('puntaje', { ascending: false })
+      .limit(10);
 
     const r4 = await this.authService.supabase
       .from('resultados_encuentra_bola')
       .select('id_usuario, puntaje, usuarios(nombre, apellido)')
-      .order('puntaje', { ascending: false });
+      .order('puntaje', { ascending: false })
+      .limit(10);
 
     if (r1.error) this.error.set('Error en ahorcado: ' + r1.error.message);
     if (r2.error) this.error.set('Error en mayor/menor: ' + r2.error.message);
