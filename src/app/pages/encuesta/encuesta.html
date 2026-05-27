@@ -1,0 +1,102 @@
+<div class="encuesta-container">
+  @if (enviado()) {
+    <div class="success-card">
+      <h2>✅ ¡Gracias por completar la encuesta!</h2>
+      <p>Tus respuestas fueron guardadas correctamente.</p>
+      <a routerLink="/home" class="btn-volver">Volver al inicio</a>
+    </div>
+  } @else {
+    <div class="encuesta-card">
+      <h1>📋 Encuesta</h1>
+      <p class="subtitulo">Todos los campos son requeridos</p>
+
+      @if (error()) {
+        <div class="alert-error">{{ error() }}</div>
+      }
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <div class="campo">
+          <label>Nombre y apellido *</label>
+          <input type="text" formControlName="nombre_apellido" placeholder="Ej: Juan Pérez" />
+          @if (form.get('nombre_apellido')?.invalid && form.get('nombre_apellido')?.touched) {
+            <span class="error">Ingresá tu nombre y apellido (mínimo 3 caracteres).</span>
+          }
+        </div>
+
+        <div class="campo">
+          <label>Edad *</label>
+          <input type="number" formControlName="edad" placeholder="Entre 18 y 99 años" />
+          @if (form.get('edad')?.invalid && form.get('edad')?.touched) {
+            <span class="error">Ingresá una edad entre 18 y 99 años.</span>
+          }
+        </div>
+
+        <div class="campo">
+          <label>Número de teléfono *</label>
+          <input
+            type="text"
+            formControlName="telefono"
+            placeholder="Solo números, máx. 10 dígitos"
+          />
+          @if (form.get('telefono')?.invalid && form.get('telefono')?.touched) {
+            <span class="error">Solo números, máximo 10 caracteres.</span>
+          }
+        </div>
+
+        <hr class="divider" />
+
+        <div class="campo">
+          <label>1. ¿Cuál es tu juego favorito de esta plataforma? *</label>
+          <select formControlName="pregunta_1">
+            <option value="" disabled selected>Seleccioná un juego...</option>
+            <option value="Ahorcado">Ahorcado</option>
+            <option value="Mayor o Menor">Mayor o Menor</option>
+            <option value="Preguntados">Preguntados</option>
+            <option value="Encuentra la Bola">Encuentra la Bola</option>
+          </select>
+          @if (form.get('pregunta_1')?.invalid && form.get('pregunta_1')?.touched) {
+            <span class="error">Seleccioná un juego.</span>
+          }
+        </div>
+
+        <div class="campo">
+          <label>2. ¿Qué géneros de juegos te gustan? (elegí al menos uno) *</label>
+          <div class="checkbox-group">
+            @for (genero of generos; track genero) {
+              <label class="checkbox-item">
+                <input
+                  type="checkbox"
+                  [checked]="isGeneroSelected(genero)"
+                  (change)="toggleGenero(genero)"
+                />
+                {{ genero }}
+              </label>
+            }
+          </div>
+          @if (form.get('pregunta_2')?.invalid && form.get('pregunta_2')?.touched) {
+            <span class="error">Seleccioná al menos un género.</span>
+          }
+        </div>
+
+        <div class="campo">
+          <label>3. ¿Con qué frecuencia jugás videojuegos? *</label>
+          <div class="radio-group">
+            @for (frec of frecuencias; track frec) {
+              <label class="radio-item">
+                <input type="radio" formControlName="pregunta_3" [value]="frec" />
+                {{ frec }}
+              </label>
+            }
+          </div>
+          @if (form.get('pregunta_3')?.invalid && form.get('pregunta_3')?.touched) {
+            <span class="error">Seleccioná una opción.</span>
+          }
+        </div>
+
+        <button type="submit" class="btn-enviar" [disabled]="enviando()">
+          {{ enviando() ? 'Enviando...' : 'Enviar encuesta' }}
+        </button>
+      </form>
+    </div>
+  }
+</div>

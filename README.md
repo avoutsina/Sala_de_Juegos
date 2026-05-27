@@ -1,59 +1,68 @@
-# TPProgra4
+# 🎮 Sala de Juegos — TP #1
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.11.
+**Alumno:** Alejandro Voutsina Labrin
 
-## Development server
+**Materia:** Programación IV — 4º Cuatrimestre — UTN Avellaneda
 
-To start a local development server, run:
+**🔗 Deploy:** [https://sala-de-juegos-beta.vercel.app/home](https://sala-de-juegos-beta.vercel.app/home)
 
-```bash
-ng serve
+---
+
+## 🛠️ Tecnologías utilizadas
+
+| Tecnología                                    | Uso                                                 |
+| --------------------------------------------- | --------------------------------------------------- |
+| [Angular](https://angular.io/)                | Framework frontend (standalone components)          |
+| [TypeScript](https://www.typescriptlang.org/) | Lenguaje principal                                  |
+| [Supabase](https://supabase.com/)             | Backend: autenticación, base de datos y tiempo real |
+| [Bootstrap](https://getbootstrap.com/)        | Estilos y componentes UI                            |
+| [Vercel](https://vercel.com/)                 | Hosting y deploy continuo                           |
+
+---
+
+## 🚀 Sprints
+
+### Sprint #1 — Estructura base del proyecto
+
+Se creó el proyecto Angular con su deploy inicial en Vercel. Se implementaron los componentes base: **Login**, **Registro**, **Home/Bienvenida** y **Quién Soy**. La página _Quién Soy_ consume la API pública de GitHub para mostrar datos del alumno (nombre, avatar y bio). Se configuró la navegación entre componentes y se agregó un favicon personalizado. En esta etapa la navegación es libre, sin restricciones de acceso.
+
+---
+
+### Sprint #2 — Autenticación y formularios
+
+Se integró **Supabase** para la autenticación de usuarios. El componente **Login** valida credenciales contra Supabase, muestra errores descriptivos en caso de fallo y redirige automáticamente al Home si el login es exitoso. Incluye tres botones de acceso rápido con usuarios de prueba preregistrados. El componente **Registro** cuenta con un formulario reactivo (`ReactiveFormsModule`) con validaciones de email, nombre, apellido, edad y contraseña; al registrarse correctamente, inicia sesión y redirige al Home. El **Home** muestra distintos botones según el estado de sesión del usuario (logueado / no logueado).
+
+---
+
+### Sprint #3 — Juegos: Ahorcado y Mayor o Menor + Chat
+
+Se implementaron los juegos **Ahorcado** (con botones de letras del abecedario, sin teclado) y **Mayor o Menor** (con baraja de naipes). Ambos guardan los resultados en Supabase al finalizar la partida (usuario, tiempo, aciertos, etc.). Se desarrolló la **Sala de Chat** global en tiempo real: los usuarios logueados pueden enviar mensajes que se guardan en la base de datos y se distribuyen automáticamente a todos los clientes mediante suscripción en tiempo real de Supabase.
+
+---
+
+### Sprint #4 — Juegos: Preguntados y Juego propio + Resultados
+
+Se implementó el juego **Preguntados**, que obtiene preguntas desde una API externa y presenta las opciones como botones. Se desarrolló el **juego propio** (descripto en la página _Quién Soy_), con su lógica, condiciones de victoria/derrota y guardado de resultados en Supabase. Se creó la página de **Resultados** con cuatro tablas, una por juego, ordenadas de mejor a peor desempeño por jugador.
+
+---
+
+## 📁 Estructura del proyecto
+
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+src/
+├── app/
+│   ├── pages/
+│   │   ├── login/
+│   │   ├── sign-up/
+│   │   ├── home/
+│   │   ├── quien-soy/
+│   │   ├── chat/
+│   │   ├── resultados/
+│   │   └── games/
+│   │       ├── ahorcado/
+│   │       ├── mayor-o-menor/
+│   │       ├── preguntados/
+│   │       └── juego-propio/
+│   └── services/
+│       └── supabase.service.ts
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

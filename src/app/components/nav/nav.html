@@ -25,53 +25,96 @@
             Home
           </a>
         </li>
-
         <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLink]="['/sobre-mi']"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            Sobre mí
-          </a>
+          <a class="nav-link" [routerLink]="['/sobre-mi']" routerLinkActive="active">Sobre mí</a>
         </li>
 
-        <!-- ✅ Solo visible si NO está logueado -->
-        <ng-container *ngIf="!usuario">
+        @if (!usuario()) {
           <li class="nav-item">
-            <a
-              class="nav-link"
-              [routerLink]="['/login']"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-            >
-              Login
+            <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">
+              Iniciar sesión
             </a>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link"
-              [routerLink]="['/sign-up']"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-            >
-              Registro
+            <a class="nav-link" [routerLink]="['/sign-up']" routerLinkActive="active">
+              Registrarme
             </a>
           </li>
-        </ng-container>
-
-        <!-- ✅ Solo visible si está logueado -->
-        <ng-container *ngIf="usuario">
-          <li class="nav-item">
-            <span class="nav-link text-muted small">{{ usuario.email }}</span>
+        } @else {
+          <li
+            class="nav-item dropdown"
+            (mouseenter)="mostrarJuegos = true"
+            (mouseleave)="mostrarJuegos = false"
+          >
+            <span class="nav-link dropdown-toggle" style="cursor: pointer">🎮 Juegos</span>
+            @if (mostrarJuegos) {
+              <ul class="dropdown-menu show">
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/ahorcado']" routerLinkActive="active">
+                    Ahorcado
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    [routerLink]="['/mayor-o-menor']"
+                    routerLinkActive="active"
+                  >
+                    Mayor o Menor
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    [routerLink]="['/preguntados']"
+                    routerLinkActive="active"
+                  >
+                    Preguntados
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    [routerLink]="['/encuentra-la-bola']"
+                    routerLinkActive="active"
+                  >
+                    Encuentra la Bola
+                  </a>
+                </li>
+              </ul>
+            }
           </li>
           <li class="nav-item">
-            <button class="btn btn-outline-danger btn-sm ms-2" (click)="cerrarSesion()">
+            <a class="nav-link" [routerLink]="['/resultados']" routerLinkActive="active">
+              🏆 Resultados
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/chat']" routerLinkActive="active">💬 Chat</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/encuesta']" routerLinkActive="active"
+              >📋 Encuesta</a
+            >
+          </li>
+          @if (esAdmin()) {
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/encuesta-resultados']" routerLinkActive="active">
+                📊 Enc. Resultados
+              </a>
+            </li>
+          }
+          <li class="nav-item">
+            <span class="nav-link text-muted small">
+              {{ usuario()?.user_metadata?.['nombre'] }}
+            </span>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link btn btn-outline-danger btn-sm ms-2" (click)="cerrarSesion()">
               Cerrar sesión
             </button>
           </li>
-        </ng-container>
+        }
       </ul>
     </div>
   </div>

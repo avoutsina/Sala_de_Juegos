@@ -1,0 +1,54 @@
+<div class="container_principal w-75 mx-auto mb-5">
+  <h2 class="text-center text-white mb-3">💬 Chat Global</h2>
+  <hr class="border-secondary" />
+
+  <div id="messages" class="messages p-2 mb-3">
+    @for (mensaje of mensajes(); track $index) {
+      @if (esMiMensaje(mensaje)) {
+        <div class="d-flex justify-content-end mb-1">
+          <div class="burbuja burbuja-propia">
+            <span class="nombre-usuario">Tú</span>
+            <span class="texto-mensaje">{{ mensaje.mensaje }}</span>
+            <span class="hora-mensaje">{{ mensaje.created_at | date: 'dd/MM HH:mm' }}</span>
+          </div>
+        </div>
+      } @else {
+        <div class="d-flex justify-content-start mb-1">
+          <div class="burbuja burbuja-ajena">
+            <span class="nombre-usuario">{{ mensaje.usuario }}</span>
+            <span class="texto-mensaje">{{ mensaje.mensaje }}</span>
+            <span class="hora-mensaje">{{ mensaje.created_at | date: 'dd/MM HH:mm' }}</span>
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <hr class="border-secondary" />
+
+  <div class="messageBox">
+    <input
+      required
+      placeholder="Escribí un mensaje..."
+      type="text"
+      id="messageInput"
+      [(ngModel)]="msj"
+      (keyup.enter)="enviarMensaje()"
+    />
+    <button id="sendButton" (click)="enviarMensaje()" title="Enviar">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 664 663">
+        <path
+          fill="none"
+          d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+        ></path>
+        <path
+          stroke-linejoin="round"
+          stroke-linecap="round"
+          stroke-width="33.67"
+          stroke="#6c6c6c"
+          d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+        ></path>
+      </svg>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+<div class="container mt-4 mb-5">
+  <h2 class="text-center mb-5">🏆 Resultados</h2>
+
+  @if (cargando()) {
+    <p class="text-center">Cargando resultados...</p>
+  }
+
+  @if (error()) {
+    <div class="alert alert-danger">{{ error() }}</div>
+  }
+
+  @if (!cargando()) {
+    <!-- AHORCADO -->
+    <h4 class="mb-3">🪢 Ahorcado</h4>
+    @if (ahorcado().length === 0) {
+      <p class="text-muted mb-4">Sin resultados todavía.</p>
+    } @else {
+      <table class="table table-striped table-bordered mb-5">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Jugador</th>
+            <th>Puntaje</th>
+            <th>Tiempo (seg)</th>
+            <th>Letras usadas</th>
+            <th>Ganó</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (r of ahorcado(); track $index) {
+            <tr>
+              <td>{{ $index + 1 }}</td>
+              <td>{{ getNombre(r) }}</td>
+              <td>{{ r.puntaje }}</td>
+              <td>{{ r.tiempo_finalizacion }}</td>
+              <td>{{ r.letras_seleccionadas }}</td>
+              <td>{{ r.gano ? '✅' : '❌' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+
+    <!-- MAYOR O MENOR -->
+    <h4 class="mb-3">🃏 Mayor o Menor</h4>
+    @if (mayorMenor().length === 0) {
+      <p class="text-muted mb-4">Sin resultados todavía.</p>
+    } @else {
+      <table class="table table-striped table-bordered mb-5">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Jugador</th>
+            <th>Puntaje</th>
+            <th>Cartas acertadas</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (r of mayorMenor(); track $index) {
+            <tr>
+              <td>{{ $index + 1 }}</td>
+              <td>{{ getNombre(r) }}</td>
+              <td>{{ r.puntaje }}</td>
+              <td>{{ r.cartas_acertadas }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+
+    <!-- PREGUNTADOS -->
+    <h4 class="mb-3">❓ Preguntados</h4>
+    @if (preguntados().length === 0) {
+      <p class="text-muted mb-4">Sin resultados todavía.</p>
+    } @else {
+      <table class="table table-striped table-bordered mb-5">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Jugador</th>
+            <th>Puntaje</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (r of preguntados(); track $index) {
+            <tr>
+              <td>{{ $index + 1 }}</td>
+              <td>{{ getNombre(r) }}</td>
+              <td>{{ r.puntaje }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+
+    <!-- ENCUENTRA LA BOLA -->
+    <h4 class="mb-3">🔴 Encuentra la Bola</h4>
+    @if (encuentraBola().length === 0) {
+      <p class="text-muted mb-4">Sin resultados todavía.</p>
+    } @else {
+      <table class="table table-striped table-bordered mb-5">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Jugador</th>
+            <th>Puntaje</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (r of encuentraBola(); track $index) {
+            <tr>
+              <td>{{ $index + 1 }}</td>
+              <td>{{ getNombre(r) }}</td>
+              <td>{{ r.puntaje }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  }
+</div>

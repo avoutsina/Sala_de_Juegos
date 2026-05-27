@@ -1,49 +1,45 @@
 <section class="container mt-5 d-flex justify-content-center">
-  @if (loading) {
+  @if (loading()) {
     <p>Cargando...</p>
   }
-  @if (!loading && user) {
+  @if (!loading() && user()) {
     <div class="card mt-5 p-3">
       <div class="row">
-        <!-- Columna izquierda -->
         <div class="col-md-4 d-flex flex-column align-items-center">
-          <!-- Parte superior: foto y nombre -->
           <div class="text-center mb-3">
             <img
-              [src]="user.avatar_url"
+              [src]="user()!.avatar_url"
               class="rounded-circle mb-2"
               alt="avatar"
               width="120"
               height="120"
             />
-            <h5 class="card-title">{{ user.name }}</h5>
+            <h5 class="card-title">{{ user()!.name }}</h5>
           </div>
 
-          <!-- Parte inferior: stats -->
           <div class="w-100 text-center">
             <div class="d-flex justify-content-around mb-2">
               <div>
-                <strong>{{ user.followers }}</strong
+                <strong>{{ user()!.followers }}</strong
                 ><br />
                 <small>Seguidores</small>
               </div>
               <div>
-                <strong>{{ user.public_repos }}</strong
+                <strong>{{ user()!.public_repos }}</strong
                 ><br />
                 <small>Repos</small>
               </div>
               <div>
-                <strong>{{ user.following }}</strong
+                <strong>{{ user()!.following }}</strong
                 ><br />
                 <small>Siguiendo</small>
               </div>
             </div>
             <p class="mb-2"><strong>Ubicación:</strong></p>
-            <p class="mt-2">{{ user.location }}</p>
+            <p class="mt-2">{{ user()!.location }}</p>
           </div>
         </div>
 
-        <!-- Columna derecha -->
         <div class="col-md-8">
           <div class="descripcionJuego">
             <h3>Encuentra la bola</h3>
@@ -68,9 +64,9 @@
               </ul>
             </div>
           </div>
-          <a href="https://github.com/avoutsina" target="_blank" class="btn btn-primary mt-3"
-            >Git Hub</a
-          >
+          <button class="btn btn-primary mt-3" (click)="abrirGit('https://github.com/avoutsina')">
+            Git Hub
+          </button>
         </div>
       </div>
     </div>

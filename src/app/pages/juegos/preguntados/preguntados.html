@@ -1,0 +1,32 @@
+<div class="container w-50 container_principal mb-5 text-center">
+  @if (!estaJugando()) {
+    <h1 class="mb-4">Preguntados</h1>
+    <h3 class="mb-3">Reglas del juego:</h3>
+    <ul class="list-group list-group-flush mb-4">
+      <li class="list-group-item">❓ Se muestra una pregunta con 4 opciones, elegí la correcta</li>
+      <li class="list-group-item">➕ Acertar suma 5 puntos</li>
+      <li class="list-group-item">💔 Errar resta una vida (tenés 5)</li>
+      <li class="list-group-item">❌ Sin vidas, el juego termina</li>
+    </ul>
+    <button (click)="comenzarPartida()" class="px-4 boton">🚀 Comenzar</button>
+    <button class="boton" routerLink="/home">Salir</button>
+  } @else {
+    <h2 class="mb-2">Preguntados</h2>
+    <hr />
+    <h4>{{ pregunta() }}</h4>
+    <div class="d-flex flex-wrap gap-3 justify-content-center mt-4">
+      @for (resp of respuestas(); track $index) {
+        <button
+          class="btn btn-primary"
+          (click)="chequearRespuesta(resp)"
+          [disabled]="respuestasDeshabilitadas().includes(resp)"
+        >
+          {{ resp }}
+        </button>
+      }
+    </div>
+    <hr />
+    <h4>Puntaje: {{ getPuntos() }} | Vidas: {{ getVidas() }} ❤️</h4>
+    <button (click)="comenzarPartida()" class="btn btn-danger mt-3">Terminar Partida</button>
+  }
+</div>

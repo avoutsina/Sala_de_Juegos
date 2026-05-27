@@ -1,11 +1,6 @@
-<form class="signup-container" (ngSubmit)="onSubmit()" novalidate>
+<form class="signup-container" [formGroup]="formularioRegistro" (ngSubmit)="enviarFormulario()">
   <h3 class="signup-title">Crear cuenta</h3>
   <p class="signup-subtitle">Completá tus datos para registrarte</p>
-
-  <!-- ✅ Mensaje de error (usuario ya registrado u otros) -->
-  <div class="alert alert-danger py-2 small" *ngIf="errorMsg">
-    {{ errorMsg }}
-  </div>
 
   <div class="mb-3">
     <label for="inputEmail" class="form-label">Email</label>
@@ -14,10 +9,12 @@
       class="form-control"
       id="inputEmail"
       placeholder="tu@email.com"
-      [(ngModel)]="email"
+      formControlName="email"
       name="email"
-      [disabled]="cargando"
     />
+    @if (formularioRegistro.get('email')?.invalid && formularioRegistro.get('email')?.touched) {
+      <small class="error">Por favor, ingresa un email válido.</small>
+    }
   </div>
 
   <div class="mb-3">
@@ -27,10 +24,14 @@
       class="form-control"
       id="inputNombre"
       placeholder="Tu nombre"
-      [(ngModel)]="nombre"
+      formControlName="nombre"
       name="nombre"
-      [disabled]="cargando"
     />
+    @if (formularioRegistro.get('nombre')?.invalid && formularioRegistro.get('nombre')?.touched) {
+      <small class="error"
+        >Por favor, ingresa un nombre válido, entre 2 y 20 caracteres sin numeros.</small
+      >
+    }
   </div>
 
   <div class="mb-3">
@@ -40,10 +41,16 @@
       class="form-control"
       id="inputApellido"
       placeholder="Tu apellido"
-      [(ngModel)]="apellido"
+      formControlName="apellido"
       name="apellido"
-      [disabled]="cargando"
     />
+    @if (
+      formularioRegistro.get('apellido')?.invalid && formularioRegistro.get('apellido')?.touched
+    ) {
+      <small class="error"
+        >Por favor, ingresa un apellido válido, entre 2 y 20 caracteres sin numeros.</small
+      >
+    }
   </div>
 
   <div class="mb-3">
@@ -53,12 +60,14 @@
       class="form-control"
       id="inputEdad"
       placeholder="Tu edad"
-      [(ngModel)]="edad"
+      formControlName="edad"
       name="edad"
-      min="1"
-      max="120"
-      [disabled]="cargando"
+      min="15"
+      max="100"
     />
+    @if (formularioRegistro.get('edad')?.invalid && formularioRegistro.get('edad')?.touched) {
+      <small class="error">Por favor, ingresa una edad válida, entre 15 y 100.</small>
+    }
   </div>
 
   <div class="mb-3">
@@ -68,10 +77,14 @@
       class="form-control"
       id="inputPassword"
       placeholder="••••••••"
-      [(ngModel)]="password"
+      formControlName="password"
       name="password"
-      [disabled]="cargando"
     />
+    @if (
+      formularioRegistro.get('password')?.invalid && formularioRegistro.get('password')?.touched
+    ) {
+      <small class="error">Por favor, ingresa una contraseña válida.</small>
+    }
     <div class="form-text">Mínimo 6 caracteres.</div>
   </div>
 
@@ -82,17 +95,21 @@
       class="form-control"
       id="inputConfirmar"
       placeholder="••••••••"
-      [(ngModel)]="confirmarPassword"
+      formControlName="confirmarPassword"
       name="confirmarPassword"
-      [disabled]="cargando"
     />
+    @if (
+      formularioRegistro.get('confirmarPassword')?.invalid &&
+      validarPassword(formularioRegistro.get('confirmarPassword')!) &&
+      formularioRegistro.get('confirmarPassword')?.touched
+    ) {
+      <small class="error">Las contraseñas no coinciden.</small>
+    }
   </div>
 
-  <!-- ✅ Botón submit — tras registro exitoso hace login y navega a Home -->
   <div class="d-flex justify-content-center mt-4">
-    <button type="submit" class="btn btn-primary w-100" [disabled]="cargando">
-      <span *ngIf="cargando" class="spinner-border spinner-border-sm me-2"></span>
-      {{ cargando ? 'Registrando...' : 'Registrarse' }}
+    <button type="submit" class="btn btn-primary w-100" [disabled]="!this.formularioRegistro.valid">
+      Registrarme
     </button>
   </div>
 

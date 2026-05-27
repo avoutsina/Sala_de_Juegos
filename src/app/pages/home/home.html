@@ -1,6 +1,5 @@
 <div class="home-wrapper">
-
-  <ng-container *ngIf="!usuario">
+  @if (!usuario()) {
     <div class="home-guest text-center py-5">
       <h2 class="mb-2">Bienvenido a <span class="text-primary fw-bold">Juegarla</span></h2>
       <p class="text-muted mb-4">Iniciá sesión o creá una cuenta para comenzar a jugar.</p>
@@ -9,26 +8,51 @@
         <a routerLink="/sign-up" class="btn btn-outline-primary px-4">Registrarme</a>
       </div>
     </div>
-  </ng-container>
-
-
-  <ng-container *ngIf="usuario">
-    <div class="home-logged text-center py-5">
+  } @else {
+    <div class="home-logged text-center py-4">
       <h2 class="mb-1">
         ¡Hola, <span class="text-primary fw-bold">{{ nombreMostrado }}</span
         >!
       </h2>
-      <p class="text-muted mb-4">Elegí un juego para empezar.</p>
+      <p class="text-muted mb-4">Elegí una actividad para empezar.</p>
 
-      <!-- Accesos a juegos (ampliá según tus rutas) -->
-      <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
-        <a routerLink="/mayor-menor" class="btn btn-outline-secondary px-4">Mayor o Menor</a>
-        <a routerLink="/ahorcado" class="btn btn-outline-secondary px-4">Ahorcado</a>
-        <a routerLink="/preguntados" class="btn btn-outline-secondary px-4">Preguntados</a>
+      <div class="d-flex flex-wrap justify-content-center gap-4 mb-4">
+        <a routerLink="/ahorcado" class="card-juego text-decoration-none">
+          <div class="icono">🪢</div>
+          <div class="card-titulo">Ahorcado</div>
+          <div class="card-desc">Adivina la palabra letra por letra</div>
+        </a>
+
+        <a routerLink="/mayor-o-menor" class="card-juego text-decoration-none">
+          <div class="icono">🃏</div>
+          <div class="card-titulo">Mayor o Menor</div>
+          <div class="card-desc">¿La próxima carta será mayor o menor?</div>
+        </a>
+
+        <a routerLink="/preguntados" class="card-juego text-decoration-none">
+          <div class="icono">❓</div>
+          <div class="card-titulo">Preguntados</div>
+          <div class="card-desc">Responde preguntas de cultura general</div>
+        </a>
+
+        <a routerLink="/encuentra-la-bola" class="card-juego text-decoration-none">
+          <div class="icono">🔴</div>
+          <div class="card-titulo">Encuentra la Bola</div>
+          <div class="card-desc">¿En qué vaso está la bola?</div>
+        </a>
+
+        <a routerLink="/resultados" class="card-juego text-decoration-none">
+          <div class="icono">🏆</div>
+          <div class="card-titulo">Resultados</div>
+          <div class="card-desc">Mirá tus puntajes y logros</div>
+        </a>
+
+        <a routerLink="/chat" class="card-juego text-decoration-none">
+          <div class="icono">💬</div>
+          <div class="card-titulo">Chat Global</div>
+          <div class="card-desc">Chateá con todos los jugadores</div>
+        </a>
       </div>
-
-
-      <button class="btn btn-danger btn-sm" (click)="cerrarSesion()">Cerrar sesión</button>
     </div>
-  </ng-container>
+  }
 </div>

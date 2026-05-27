@@ -1,0 +1,70 @@
+<div class="container w-75 container_principal text-white mb-5">
+  @if (!juegoIniciado()) {
+    <h1 class="text-center mb-4">Juego del Ahorcado</h1>
+
+    <h3 class="mb-3">Reglas del juego:</h3>
+    <ul class="list-group list-group-flush mb-4 lista-oscura">
+      <li class="list-group-item">✅ Adivinar la mayor cantidad de palabras</li>
+      <li class="list-group-item">
+        🔤 Elegí una letra del abecedario haciendo click en los botones
+      </li>
+      <li class="list-group-item">📖 Si la letra está en la palabra, aparecerá en pantalla</li>
+      <li class="list-group-item">🏆 Descubrí todas las letras para ganar</li>
+      <li class="list-group-item">❌ Si perdés tus 6 vidas, el juego termina</li>
+    </ul>
+
+    <div class="mb-3">
+      <label for="opciones" class="form-label fw-bold">Elegí una categoría:</label>
+      <select
+        id="opciones"
+        name="opciones"
+        class="form-select select-oscuro"
+        [(ngModel)]="categoria"
+      >
+        <option value="animales">Animales</option>
+        <option value="frutas">Frutas</option>
+        <option value="países">Países</option>
+        <option value="objetos">Objetos</option>
+        <option value="marcas">Marcas</option>
+      </select>
+    </div>
+
+    <div class="text-center">
+      <button (click)="traerPalabras()" class="boton">🚀 Comenzar</button>
+      <button class="boton" routerLink="/home">Salir</button>
+    </div>
+
+  } @else {
+    <div class="text-center">
+      <h2 class="mb-2">Ahorcado</h2>
+      <hr />
+      <h3>Categoría: {{ categoria() | titlecase }}</h3>
+
+      <div class="container text-center mt-4">
+        <div class="image-box mx-auto" [style.backgroundImage]="getBackground()"></div>
+      </div>
+
+      <h1 class="display-4 mb-3 letra-espaciada">{{ display()?.join(' ') }}</h1>
+
+      <!-- Botones del abecedario — entrada SOLO por botones, NO teclado -->
+      <div class="mb-3">
+        @for (l of alfabeto; track l) {
+          <button
+            class="btn btn-outline-light m-1 botonLetra"
+            [disabled]="letrasElegidas().includes(l) || !juegoIniciado()"
+            (click)="adivinar(l)"
+          >
+            {{ l | uppercase }}
+          </button>
+        }
+      </div>
+
+      <hr />
+      <h2>Puntaje: {{ puntos }} | Vidas: {{ vidas }}❤️</h2>
+      <br />
+      <div class="mt-3">
+        <button class="boton" (click)="guardarResultado(false); reiniciar()">Terminar juego</button>
+      </div>
+    </div>
+  }
+</div>

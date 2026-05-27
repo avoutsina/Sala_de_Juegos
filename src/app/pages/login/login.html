@@ -1,11 +1,6 @@
-<form class="login-container" (ngSubmit)="onSubmit()" novalidate>
+<form class="login-container" [formGroup]="formularioLogin" (ngSubmit)="onSubmit()" novalidate>
   <h2 class="login-title">Iniciar sesión</h2>
   <p class="login-subtitle">Ingresá tus datos para acceder</p>
-
-  <!-- ✅ Mensaje de error -->
-  <div class="alert alert-danger py-2 small" *ngIf="errorMsg">
-    {{ errorMsg }}
-  </div>
 
   <div class="mb-3">
     <label for="inputEmail" class="form-label">Email</label>
@@ -14,10 +9,13 @@
       class="form-control"
       id="inputEmail"
       placeholder="tu@email.com"
-      [(ngModel)]="email"
+      formControlName="email"
       name="email"
-      [disabled]="cargando"
+      [attr.disabled]="cargando ? true : null"
     />
+    @if (formularioLogin.get('email')?.invalid && formularioLogin.get('email')?.touched) {
+      <small class="error">Por favor, ingresá un email válido.</small>
+    }
   </div>
 
   <div class="mb-3">
@@ -27,21 +25,28 @@
       class="form-control"
       id="inputPassword"
       placeholder="••••••••"
-      [(ngModel)]="password"
+      formControlName="password"
       name="password"
-      [disabled]="cargando"
+      [attr.disabled]="cargando ? true : null"
     />
+    @if (formularioLogin.get('password')?.invalid && formularioLogin.get('password')?.touched) {
+      <small class="error">La contraseña debe tener al menos 6 caracteres.</small>
+    }
   </div>
 
-  <!-- ✅ Botón submit — redirige a Home si es exitoso -->
+  @if (errorMsg) {
+    <div class="alert alert-danger py-2 small">{{ errorMsg }}</div>
+  }
+
   <div class="d-flex justify-content-center mb-3">
     <button type="submit" class="btn btn-primary w-100" [disabled]="cargando">
-      <span *ngIf="cargando" class="spinner-border spinner-border-sm me-2"></span>
+      @if (cargando) {
+        <span class="spinner-border spinner-border-sm me-2"></span>
+      }
       {{ cargando ? 'Ingresando...' : 'Ingresar' }}
     </button>
   </div>
 
-  <!-- ✅ Botones de prueba rápida -->
   <p class="text-center text-muted small mb-2">Usuarios de prueba:</p>
   <div class="d-flex justify-content-center gap-2 mb-3">
     <button

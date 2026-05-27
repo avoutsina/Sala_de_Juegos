@@ -8,9 +8,8 @@ describe('SobreMi', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SobreMi]
-    })
-    .compileComponents();
+      imports: [SobreMi],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SobreMi);
     component = fixture.componentInstance;

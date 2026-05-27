@@ -1,0 +1,45 @@
+.home-wrapper {
+  padding: 2rem 1rem;
+}
+
+.card-juego {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  padding: 24px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.4) !important; /* blanco con 60% de opacidad */
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  color: white;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+  cursor: pointer;
+}
+
+.card-juego:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
+  color: white;
+}
+
+.card-juego .icono {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.card-juego .card-titulo {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.card-juego .card-desc {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+  line-height: 1.4;
+}

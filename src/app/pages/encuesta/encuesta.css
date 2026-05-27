@@ -1,0 +1,142 @@
+.encuesta-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem;
+}
+
+.encuesta-card,
+.success-card {
+  background-color: rgba(255, 255, 255, 0.4) !important; /* blanco con 60% de opacidad */
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 620px;
+  color: #000000;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+.subtitulo {
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.4rem;
+}
+.campo label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+input[type='text'],
+input[type='number'] {
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #000000;
+  font-size: 1rem;
+}
+input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.checkbox-group,
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+.checkbox-item,
+.radio-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+input[type='checkbox'],
+input[type='radio'] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 0.82rem;
+}
+.alert-error {
+  background: rgba(255, 0, 0, 0.15);
+  border: 1px solid red;
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  margin-bottom: 1rem;
+}
+.divider {
+  border-color: rgba(255, 255, 255, 0.15);
+  margin: 1.5rem 0;
+}
+
+.btn-enviar {
+  width: 100%;
+  padding: 0.8rem;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-enviar:hover {
+  opacity: 0.85;
+}
+
+.success-card {
+  text-align: center;
+}
+.success-card h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+.btn-volver {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.5rem;
+  background: #6366f1;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+}
+select {
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1rem;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+}
+
+select option {
+  background: rgba(233, 233, 237, 0.95);
+  color: #5f5f5f;
+}

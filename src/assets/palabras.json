@@ -1,0 +1,33 @@
+{
+  "animales":
+  [
+    "perro", "gato", "oso", "león", "tigre", "elefante", "jirafa", "caballo",
+    "delfin", "lobo", "aguila", "zorro", "conejo", "vaca", "cerdo", "gallina",
+    "serpiente", "canguro", "ballena", "pinguino"
+  ],
+  "frutas":
+  [
+    "manzana", "banana", "pera", "uva", "sandía", "melon", "kiwi", "mango",
+    "durazno", "naranja", "mandarina", "cereza", "frutilla", "limón", "pomelo",
+    "anana", "higo", "granada", "arandano", "ciruela"
+  ],
+  "países":
+  [
+    "Argentina", "Chile", "Mexico", "España", "Brasil", "Colombia", "Peru", "Uruguay",
+    "Ecuador", "Venezuela", "Estados Unidos", "Canada", "Italia", "Francia", "Alemania",
+    "Japón", "China", "India", "Australia", "Sudafrica"
+  ],
+  "objetos":
+  [
+    "silla", "mesa", "cuchara", "tenedor", "cuchillo", "ventana", "puerta", "libro",
+    "lampara", "celular", "computadora", "teclado", "monitor", "reloj", "mochila",
+    "camiseta", "zapatilla", "gafas", "pelota", "boligrafo"
+  ],
+  "marcas":
+  [
+    "Nike", "Adidas", "Puma", "Reebok", "Samsung", "Apple", "Sony", "Microsoft",
+    "Google", "Amazon", "Coca Cola", "Pepsi", "McDonald's", "Burger King", "Starbucks",
+    "Ford", "Toyota", "BMW", "Mercedes", "Tesla"
+  ]
+}
+
