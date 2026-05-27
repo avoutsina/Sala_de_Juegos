@@ -1,5 +1,5 @@
 .container_principal {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(255, 255, 255, 0.4) !important; /* blanco con 60% de opacidad */
   box-shadow: 10px 10px 20px black;
   border-radius: 15px;
   padding: 25px;
@@ -9,7 +9,7 @@
 .messages {
   max-height: 400px;
   overflow-y: auto;
-  background: rgba(45, 45, 45, 0.45);
+  background-color: rgba(255, 255, 255, 0.4) !important; /* blanco con 60% de opacidad */
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.04);
   padding: 12px;

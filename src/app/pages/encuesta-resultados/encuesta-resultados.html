@@ -1,0 +1,20 @@
+<div class="er-container">
+  <h1>📊 Resultados de Encuestas</h1>
+
+  @if (cargando()) {
+    <p>Cargando...</p>
+  } @else if (respuestas().length === 0) {
+    <p>No hay respuestas aún.</p>
+  } @else {
+    @for (r of respuestas(); track r.id) {
+      <div class="er-card">
+        <h3>{{ r.nombre_apellido }} {{ r.usuarios?.nombre }} {{ r.usuarios?.apellido }}</h3>
+        <p><strong>Edad:</strong> {{ r.edad }} | <strong>Teléfono:</strong> {{ r.telefono }}</p>
+        <p><strong>Juego favorito:</strong> {{ r.pregunta_1 }}</p>
+        <p><strong>Géneros que le gustan:</strong> {{ r.pregunta_2?.join(', ') }}</p>
+        <p><strong>Frecuencia de juego:</strong> {{ r.pregunta_3 }}</p>
+        <small>{{ r.created_at | date: 'dd/MM/yyyy HH:mm' }}</small>
+      </div>
+    }
+  }
+</div>
